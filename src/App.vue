@@ -1,10 +1,31 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <Nav/>
+    <router-view/>
   </div>
-  <router-view/>
 </template>
+
+<script>
+import Nav from './components/Nav';
+import axios from 'axios';
+
+export default {
+  components: {
+    Nav,
+  },
+  data() {
+    return {
+      // user: ''
+    }
+  },
+  async created() {
+    let response = await axios.get('details')
+    // this.user = response.data.success;
+    this.$store.dispatch('user', response.data.success)
+
+  },
+}
+</script>
 
 <style>
 #app {
